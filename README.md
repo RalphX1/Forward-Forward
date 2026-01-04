@@ -6,12 +6,15 @@ This repository contains a corrected implementation of Geoffrey Hinton's Forward
 
 ```
 Forward-Forward/
-├── forward_forward.py      # Core implementation (FFLayer, FFNetwork)
-├── mnist_example.py        # MNIST-style digit classification example
-├── gui.py                  # Interactive GUI for training and testing
-├── test_forward_forward.py # Automated test suite (20 tests)
-├── README.md              # This file
-└── .gitignore            # Python gitignore
+├── forward_forward.py       # Core implementation (FFLayer, FFNetwork)
+├── mnist_example.py         # MNIST-style digit classification example
+├── gui.py                   # Interactive GUI for training and testing
+├── test_forward_forward.py  # Automated test suite (20 tests)
+├── PAPER_VERIFICATION.md    # Verification against Hinton's paper ⭐
+├── QUICKSTART.md           # Quick start guide
+├── README.md               # This file
+├── requirements.txt        # Python dependencies
+└── .gitignore             # Python gitignore
 ```
 
 ## What is Forward-Forward?
@@ -245,8 +248,18 @@ All tests pass with 100% success rate! ✓
 
 ## References
 
-- Geoffrey Hinton's Forward-Forward Algorithm paper
-- Original implementation attempts highlight common pitfalls
+### Original Paper
+- **[Hinton, G. (2022). The Forward-Forward Algorithm: Some Preliminary Investigations](https://arxiv.org/abs/2212.13345)** - arXiv:2212.13345
+- [Alternative PDF Link](http://www.cs.toronto.edu/~hinton/FFA13.pdf)
+
+### Implementation Verification
+- **[PAPER_VERIFICATION.md](PAPER_VERIFICATION.md)** - Detailed verification of our implementation against Hinton's paper ✅
+
+### Additional Resources
+- [Keras Forward-Forward Tutorial](https://keras.io/examples/vision/forwardforward/)
+- [What is the Forward-Forward Algorithm? - TechTalks](https://bdtechtalks.com/2022/12/19/forward-forward-algorithm-geoffrey-hinton/)
+- [PyTorch FF Implementations](https://github.com/mpezeshki/pytorch_forward_forward)
+- [Medium Article on FF Algorithm](https://pub.towardsai.net/forward-forward-algorithm-ac24d0d9ffd)
 
 ## Common Pitfalls to Avoid
 
