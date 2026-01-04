@@ -2,6 +2,18 @@
 
 This repository contains a corrected implementation of Geoffrey Hinton's Forward-Forward (FF) algorithm for training neural networks.
 
+## 📁 Project Structure
+
+```
+Forward-Forward/
+├── forward_forward.py      # Core implementation (FFLayer, FFNetwork)
+├── mnist_example.py        # MNIST-style digit classification example
+├── gui.py                  # Interactive GUI for training and testing
+├── test_forward_forward.py # Automated test suite (20 tests)
+├── README.md              # This file
+└── .gitignore            # Python gitignore
+```
+
 ## What is Forward-Forward?
 
 The Forward-Forward algorithm is an alternative to backpropagation that trains neural networks using two forward passes:
@@ -132,8 +144,11 @@ for epoch in range(num_epochs):
 probabilities, goodness_values = network.predict(test_data)
 ```
 
-## Running the Example
+## Running the Examples
 
+### Command Line Examples
+
+**Basic XOR Example:**
 ```bash
 python forward_forward.py
 ```
@@ -142,6 +157,85 @@ This will train on a simple XOR-like classification task and show:
 - Training progress with goodness values per layer
 - Test predictions on positive, negative, and random data
 - Probability scores for classification
+
+**MNIST-Style Example:**
+```bash
+python mnist_example.py
+```
+
+This demonstrates digit classification with:
+- Image-label pair training
+- Classification by trying all labels
+- More realistic use case
+
+### Graphical User Interface
+
+Launch the interactive GUI for visual training and testing:
+
+```bash
+python gui.py
+```
+
+**Features:**
+- 🎛️ Configure network architecture interactively
+- 📊 Real-time training progress visualization
+- 🧪 Test custom inputs and see predictions
+- 📈 Monitor goodness scores per layer
+- ⚙️ Adjustable hyperparameters (learning rate, threshold, epochs)
+- 🎯 Choose between XOR and random datasets
+
+The GUI provides an intuitive way to experiment with the Forward-Forward algorithm without writing code.
+
+## Automated Testing
+
+The repository includes comprehensive automated tests to ensure correctness.
+
+### Running Tests
+
+```bash
+# Install pytest (if not already installed)
+pip install pytest
+
+# Run all tests
+python -m pytest test_forward_forward.py -v
+
+# Run specific test class
+python -m pytest test_forward_forward.py::TestFFLayer -v
+
+# Run with coverage (if pytest-cov is installed)
+python -m pytest test_forward_forward.py --cov=forward_forward
+```
+
+### Test Coverage
+
+The test suite includes **20 automated tests** covering:
+
+**Layer Tests (`TestFFLayer`):**
+- ✅ Layer initialization with correct dimensions
+- ✅ Weight initialization ranges (Xavier/Glorot)
+- ✅ Forward pass shape correctness
+- ✅ ReLU activation application
+- ✅ Goodness computation (per-sample)
+- ✅ Training step updates weights correctly
+
+**Network Tests (`TestFFNetwork`):**
+- ✅ Multi-layer network initialization
+- ✅ End-to-end forward pass
+- ✅ Training step metrics
+- ✅ Prediction functionality
+- ✅ Learning progression (goodness improves)
+
+**Edge Cases (`TestEdgeCases`):**
+- ✅ Single sample batches
+- ✅ Large batches (1000 samples)
+- ✅ Zero inputs
+- ✅ Numerical stability with large values
+
+**Integration Tests (`TestIntegration`):**
+- ✅ Complete XOR classification workflow
+- ✅ Training reproducibility with seed
+
+All tests pass with 100% success rate! ✓
 
 ## Key Parameters
 
