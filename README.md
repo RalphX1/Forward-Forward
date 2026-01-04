@@ -11,11 +11,24 @@ Forward-Forward/
 ├── gui.py                   # Interactive GUI for training and testing
 ├── test_forward_forward.py  # Automated test suite (20 tests)
 ├── PAPER_VERIFICATION.md    # Verification against Hinton's paper ⭐
+├── COMPATIBILITY.md         # Cross-platform support guide
 ├── QUICKSTART.md           # Quick start guide
 ├── README.md               # This file
 ├── requirements.txt        # Python dependencies
 └── .gitignore             # Python gitignore
 ```
+
+## 🖥️ Platform Support
+
+**Works on all major operating systems!**
+
+✅ **Linux** (Ubuntu, Debian, Fedora, Arch)
+✅ **macOS** (Intel & Apple Silicon)
+✅ **Windows** (10 & 11)
+
+**Requirements**: Python 3.8+ (tested on 3.11)
+
+See **[COMPATIBILITY.md](COMPATIBILITY.md)** for detailed platform-specific instructions and troubleshooting.
 
 ## What is Forward-Forward?
 
