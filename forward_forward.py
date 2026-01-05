@@ -234,6 +234,71 @@ class FFNetwork:
 
         return probabilities, goodness_values
 
+    def evaluate(self, x_pos, x_neg, threshold=0.5):
+        """
+        Evaluate model performance on positive and negative test data
+
+        Args:
+            x_pos: Positive test data (batch_size, input_dim)
+            x_neg: Negative test data (batch_size, input_dim)
+            threshold: Classification threshold (default 0.5)
+
+        Returns:
+            metrics: Dictionary containing accuracy, precision, recall, F1, etc.
+        """
+        # Predict on positive data (labels = 1)
+        probs_pos, _ = self.predict(x_pos)
+        preds_pos = (probs_pos > threshold).astype(int)
+        labels_pos = np.ones(len(x_pos), dtype=int)
+
+        # Predict on negative data (labels = 0)
+        probs_neg, _ = self.predict(x_neg)
+        preds_neg = (probs_neg > threshold).astype(int)
+        labels_neg = np.zeros(len(x_neg), dtype=int)
+
+        # Combine predictions and labels
+        all_preds = np.concatenate([preds_pos, preds_neg])
+        all_labels = np.concatenate([labels_pos, labels_neg])
+        all_probs = np.concatenate([probs_pos, probs_neg])
+
+        # Compute confusion matrix
+        true_positives = np.sum((all_preds == 1) & (all_labels == 1))
+        true_negatives = np.sum((all_preds == 0) & (all_labels == 0))
+        false_positives = np.sum((all_preds == 1) & (all_labels == 0))
+        false_negatives = np.sum((all_preds == 0) & (all_labels == 1))
+
+        # Compute metrics
+        total = len(all_labels)
+        accuracy = (true_positives + true_negatives) / total
+
+        precision = true_positives / (true_positives + false_positives) if (true_positives + false_positives) > 0 else 0
+        recall = true_positives / (true_positives + false_negatives) if (true_positives + false_negatives) > 0 else 0
+        f1 = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
+
+        # Specificity (true negative rate)
+        specificity = true_negatives / (true_negatives + false_positives) if (true_negatives + false_positives) > 0 else 0
+
+        # Average goodness separation
+        goodness_pos = self.layers[-1].compute_goodness(self.forward(x_pos)[-1])
+        goodness_neg = self.layers[-1].compute_goodness(self.forward(x_neg)[-1])
+        goodness_separation = np.mean(goodness_pos) - np.mean(goodness_neg)
+
+        return {
+            'accuracy': accuracy,
+            'precision': precision,
+            'recall': recall,
+            'f1_score': f1,
+            'specificity': specificity,
+            'true_positives': int(true_positives),
+            'true_negatives': int(true_negatives),
+            'false_positives': int(false_positives),
+            'false_negatives': int(false_negatives),
+            'total_samples': int(total),
+            'goodness_separation': goodness_separation,
+            'mean_prob_positive': float(np.mean(probs_pos)),
+            'mean_prob_negative': float(np.mean(probs_neg))
+        }
+
 
 # Example usage and testing
 if __name__ == "__main__":

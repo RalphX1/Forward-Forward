@@ -7,6 +7,7 @@ This repository contains a corrected implementation of Geoffrey Hinton's Forward
 ```
 Forward-Forward/
 ├── forward_forward.py       # Core implementation (FFLayer, FFNetwork)
+├── evaluation_example.py    # Model evaluation with metrics ⭐ NEW
 ├── mnist_example.py         # MNIST-style digit classification example
 ├── gui.py                   # Interactive GUI for training and testing
 ├── test_forward_forward.py  # Automated test suite (20 tests)
@@ -183,6 +184,19 @@ This demonstrates digit classification with:
 - Image-label pair training
 - Classification by trying all labels
 - More realistic use case
+
+**Model Evaluation Example:**
+```bash
+python evaluation_example.py
+```
+
+Comprehensive evaluation showing:
+- Train/test split (80/20)
+- Accuracy, Precision, Recall, F1 Score
+- Confusion matrix
+- Overfitting analysis
+- Learning curves
+- Goodness separation metrics
 
 ### Graphical User Interface
 
